@@ -10,13 +10,15 @@ var _translations = {}
 var _lines = []
 var _filepath = ProjectSettings.globalize_path("user://translate.txt")
 var _text_manager = TextManager.new()
+var _regex = RegEx.new()
 
 func _ready():
+	_regex.compile("[^\\n\\r]+")
 	_readme.bbcode_text = str(_readme.bbcode_text % [_filepath.get_file(), _filepath.get_base_dir()])
 	extract()
 
 func _process(_delta):
-	_apply.disabled = _translations.empty()
+	_apply.disabled = _lines.empty()
 
 func _on_CancelButton_pressed():
 	emit_signal("next_screen", "configuration")
@@ -28,12 +30,12 @@ func _on_ApplyButton_pressed():
 
 func _on_TargetText_text_changed():
 	_lines.clear()
-
-	for line in _target_text.text.split("\n"):
-		if not line.empty():
-			_lines.append(line)
+	
+	for result in _regex.search_all(_target_text.text):
+		_lines.append(result.get_string())
 	
 	if _lines.size() != _translations.size():
+		printerr("Number of lines %d does not match number of translations %s" % [_lines.size(), _translations.size()])
 		_lines.clear()
 		return
 
