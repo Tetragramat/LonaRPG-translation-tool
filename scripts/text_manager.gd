@@ -10,12 +10,18 @@ func _init():
 		printerr("Unable to compile regex")
 
 func import(path: String, translations: Dictionary) -> void:
+	# translations contains extracted with removed duplicates
 	var lines = _extracted
 	
 	if lines.empty():
 		return
 	
+	# replace original lines with translations
 	for key in translations:
+		# if translation is same as original then skip the value
+		if key == translations[key]:
+			continue
+		
 		var index = 0
 		
 		while true:
