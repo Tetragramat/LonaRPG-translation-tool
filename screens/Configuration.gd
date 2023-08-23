@@ -3,44 +3,44 @@ extends "AbstractScreen.gd"
 const TextManager = preload("res://scripts/text_manager.gd")
 const GoogleLocales = preload("res://scripts/locales.gd")
 
-onready var _language_option_button = $MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/LanguageOptionButton
-onready var _google_translate_button = $MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/GoogleTranslateButton
-onready var _manual_translate_button = $MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/ManualTranslateButton
-onready var _always_on_top_button = $AlwaysOnTopButton
-onready var _file_dialog = $FileDialog
-onready var _accept_dialog = $AcceptDialog
-onready var _config = get_node("/root/Config")
-onready var _data = get_node("/root/LocalizationData")
+@onready var _language_option_button = $MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/LanguageOptionButton
+@onready var _google_translate_button = $MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/GoogleTranslateButton
+@onready var _manual_translate_button = $MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/ManualTranslateButton
+@onready var _always_on_top_button = $AlwaysOnTopButton
+@onready var _file_dialog = $FileDialog
+@onready var _accept_dialog = $AcceptDialog
+@onready var _config = get_node("/root/Config")
+@onready var _data = get_node("/root/LocalizationData")
 
 func _ready():
 	_always_on_top_button.set_pressed(_config.get_window_always_on_top())
 	setup_language_option_button()
-	get_tree().connect("files_dropped", self, "_on_files_dropped")
+	get_viewport().files_dropped.connect(_on_files_dropped)
 	_parse_cmdline()
 
 func _parse_cmdline():
 	for argument in OS.get_cmdline_args():
-		_on_FileDialog_file_selected(argument)
+		if not argument.contains("res://"):
+			_on_FileDialog_file_selected(argument)
 		break
 
 func _process(_delta):
-	_language_option_button.disabled = _data.text_directory.empty()
-	_google_translate_button.disabled = _data.language_directory.empty()
-	_manual_translate_button.disabled = _data.language_directory.empty()
+	_language_option_button.disabled = _data.text_directory.is_empty()
+	_google_translate_button.disabled = _data.language_directory.is_empty() or _data.language.is_empty()
+	_manual_translate_button.disabled = _data.language_directory.is_empty() or _data.language.is_empty()
 
 func _on_SelectGameButton_pressed():
 	_file_dialog.popup_centered()
 	_file_dialog.set_current_path(_config.get_game_path())
 
-func _on_files_dropped(files: PoolStringArray, screen: int) -> void:
+func _on_files_dropped(files: PackedStringArray, screen: int) -> void:
 	_file_dialog.visible = false
 	_on_FileDialog_file_selected(files[0])
 
 func _on_FileDialog_file_selected(path: String):
-	var dir = Directory.new()
 	var text_dir = path.get_base_dir() + "/Text"
 	
-	if not dir.dir_exists(text_dir):
+	if not DirAccess.dir_exists_absolute(text_dir):
 		_accept_dialog.dialog_text =  "Directory " + text_dir + " does not exist!"
 		_accept_dialog.popup_centered()
 		return
@@ -66,6 +66,10 @@ func _on_LanguageOptionButton_item_selected(index):
 		_:
 			_data.language_directory = "CHT"
 	
+	if not DirAccess.dir_exists_absolute(_data.get_source_dir()):
+		printerr("Source directory %s does not exist reverting back to default CHT directory." % _data.get_source_dir())
+		_data.language_directory = "CHT"
+	
 	copy_recursive(_data.get_source_dir(), _data.get_target_dir())
 
 func _on_GoogleTranslateButton_pressed():
@@ -76,11 +80,11 @@ func _on_ManualTranslateButton_pressed():
 
 func _on_AlwaysOnTopButton_toggled(button_pressed):
 	_config.set_window_always_on_top(button_pressed)
-	OS.set_window_always_on_top(button_pressed)
+	get_window().always_on_top = (button_pressed)
 
 func setup_language_option_button():
-	_language_option_button.add_item(_language_option_button.text, 0)
-	_language_option_button.set_item_disabled(0, true)
+	_language_option_button.add_item("Select language", 0)
+	_language_option_button.set_item_metadata(0, "")
 	
 	var index = 1
 	for item in GoogleLocales.LOCALES:
@@ -89,18 +93,18 @@ func setup_language_option_button():
 		index = index + 1
 
 func copy_recursive(from: String, to: String) -> void:
-	var directory := Directory.new()
-	
-	if not directory.dir_exists(to):
-		if directory.make_dir_recursive(to) != OK:
+	if not DirAccess.dir_exists_absolute(to):
+		if DirAccess.make_dir_recursive_absolute(to) != OK:
 			printerr("Failed to create directory %s" % to)
 			return
 	
-	if directory.open(from) != OK:
+	var directory = DirAccess.open(from)
+	
+	if not directory:
 		printerr("Unable to open directory %s" % from)
 		return
 	
-	if directory.list_dir_begin(true) != OK:
+	if directory.list_dir_begin() != OK:
 		printerr("Unable to list directory %s" % from)
 		return
 	
@@ -115,9 +119,7 @@ func copy_recursive(from: String, to: String) -> void:
 		file_name = directory.get_next()
 
 func copy_file(from: String, to: String) -> void:
-	var directory = Directory.new()
-	
-	if directory.copy(from, to) != OK:
+	if DirAccess.copy_absolute(from, to) != OK:
 		printerr("Failed to copy file from %s to %s" % [from, to])
 
 

@@ -8,7 +8,7 @@ var screens = {
 	}
 
 func _ready():
-	current_screen = find_node("Screen")
+	current_screen = find_child("Screen")
 	_load_screen("configuration")
 
 func _load_screen(name):
@@ -19,8 +19,8 @@ func _load_screen(name):
 		if old_screen != null:
 			current_screen.remove_child(old_screen)
 		
-		var new_screen = screens[name].instance()
-		new_screen.connect("next_screen", self, "_load_screen")
+		var new_screen = screens[name].instantiate()
+		new_screen.connect("next_screen", Callable(self, "_load_screen"))
 		current_screen.add_child(new_screen)
 	else:
 		printerr("[ERROR] Cannot load screen: ", name)

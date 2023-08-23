@@ -1,168 +1,120 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://s8ecjys3uo5r"]
 
-[ext_resource path="res://screens/Configuration.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://screens/Configuration.gd" id="1"]
 
 [node name="Configuration" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
 
 [node name="Panel" type="Panel" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-custom_constants/margin_bottom = 10
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 1014.0
-margin_bottom = 590.0
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
-margin_right = 1004.0
-margin_bottom = 175.0
-custom_constants/margin_right = 50
-custom_constants/margin_top = 50
-custom_constants/margin_left = 50
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/MarginContainer"]
-margin_left = 50.0
-margin_top = 50.0
-margin_right = 954.0
-margin_bottom = 175.0
+layout_mode = 2
 bbcode_enabled = true
-bbcode_text = "[center]This tool is limited in that only Chinese characters can be extracted and translated.
+text = "[center]This tool is limited in that only Chinese characters can be extracted and translated.
 So you can translate only from Chinese to your preffered language. 
 
 WARNING: This tool overrides contents of Text/MTL directory of the game each time you select directory you want to translate.[/center]"
-text = "This tool is limited in that only Chinese characters can be extracted and translated.
-So you can translate only from Chinese to your preffered language. 
-
-WARNING: This tool overrides contents of Text/MTL directory of the game each time you select directory you want to translate."
-fit_content_height = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+fit_content = true
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 179.0
-margin_right = 1004.0
-margin_bottom = 580.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer"]
-margin_left = 349.0
-margin_top = 95.0
-margin_right = 655.0
-margin_bottom = 305.0
-custom_constants/separation = 30
+layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="SelectGameButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
-margin_right = 306.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
 text = "Select Game.exe in LonaRPG directory"
 
 [node name="LanguageOptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
-margin_top = 80.0
-margin_right = 306.0
-margin_bottom = 130.0
-rect_min_size = Vector2( 0, 50 )
-hint_tooltip = "By selecting an option the content of MTL directory will be replaced with content of chosen directory.
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+tooltip_text = "By selecting an option the content of MTL directory will be replaced with content of chosen directory.
 
-That means if you already finished translation, then selecting an option will delete it."
-text = "Select language"
-align = 1
+That means if you already finished position, then selecting an option will delete it."
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
-margin_top = 160.0
-margin_right = 306.0
-margin_bottom = 210.0
-custom_constants/separation = 30
+layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="GoogleTranslateButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
-margin_right = 137.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Google translate"
 
 [node name="ManualTranslateButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
-margin_left = 167.0
-margin_right = 306.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
 size_flags_horizontal = 3
 text = "Manual translate"
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 5.28061
-margin_top = -53.7754
-margin_right = 635.281
-margin_bottom = -2.77539
-custom_colors/font_color = Color( 0.686275, 0.686275, 0.686275, 1 )
+offset_left = 5.28061
+offset_top = -53.7754
+offset_right = 635.281
+offset_bottom = -2.77539
+theme_override_colors/font_color = Color(0.686275, 0.686275, 0.686275, 1)
 text = "Author: Tetragramat
 Bug reports: Send to Itch comunity or Tetragramat#3535 in official LonaRPG discord"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AlwaysOnTopButton" type="CheckButton" parent="."]
+layout_mode = 0
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -252.0
-margin_top = -40.0
+offset_left = -252.0
+offset_top = -40.0
 focus_mode = 0
-enabled_focus_mode = 0
 text = "Window always on top"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="FileDialog" type="FileDialog" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -400.0
-margin_top = -250.0
-margin_right = 400.0
-margin_bottom = 250.0
-rect_min_size = Vector2( 800, 500 )
-custom_colors/folder_icon_modulate = Color( 1, 0.972549, 0.27451, 1 )
-custom_colors/file_icon_modulate = Color( 1, 0.396078, 0.396078, 1 )
-popup_exclusive = true
-window_title = "Open a File"
-resizable = true
-mode = 0
+title = "Open a File"
+initial_position = 2
+size = Vector2i(800, 500)
+theme_override_colors/folder_icon_color = Color(1, 0.827451, 0.0705882, 1)
+theme_override_colors/file_icon_color = Color(1, 0.309804, 0.309804, 1)
+ok_button_text = "Otevřít"
+file_mode = 0
 access = 2
-filters = PoolStringArray( "Game.exe" )
-current_dir = "/Godot/LonaRPG translation tool"
-current_path = "/Godot/LonaRPG translation tool/"
+filters = PackedStringArray("Game.exe")
 
 [node name="AcceptDialog" type="AcceptDialog" parent="."]
-margin_right = 89.0
-margin_bottom = 78.0
+initial_position = 2
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/SelectGameButton" to="." method="_on_SelectGameButton_pressed"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/LanguageOptionButton" to="." method="_on_LanguageOptionButton_item_selected"]

@@ -6,26 +6,17 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "Object",
-"class": "TextManager",
-"language": "GDScript",
-"path": "res://scripts/text_manager.gd"
-} ]
-_global_script_class_icons={
-"TextManager": ""
-}
+config_version=5
 
 [application]
 
 config/name="LonaRPG MTL"
 run/main_scene="res://Root.tscn"
+config/features=PackedStringArray("4.1")
 run/low_processor_mode=true
+boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="res://splash.png"
 boot_splash/fullsize=false
-boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
@@ -36,11 +27,11 @@ Config="*res://scripts/Config.gd"
 
 [gdnative]
 
-singletons=[  ]
+singletons=[]
 
 [gui]
 
-common/swap_ok_cancel=false
+common/swap_cancel_ok=false
 theme/custom_font="res://assets/NotoSansTC.tres"
 
 [logging]
@@ -49,7 +40,7 @@ file_logging/log_path="user://logs/log.log"
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
+environment/defaults/default_environment="res://default_env.tres"
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
-vram_compression/import_etc2=false
-environment/default_environment="res://default_env.tres"
