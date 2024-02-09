@@ -5,11 +5,11 @@ extends "AbstractScreen.gd"
 @onready var _target_text = $MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2/TargetText
 @onready var _apply = $MarginContainer/VBoxContainer/HBoxContainer2/ApplyButton
 @onready var _data = get_node("/root/LocalizationData")
+@onready var _translator: Translator = Translator.new(_data.get_language(), _data.get_target_dir())
 
 var _translations = {}
 var _lines = []
 var _filepath = ProjectSettings.globalize_path("user://translate.txt")
-var _text_manager = TextManager.new()
 var _regex = RegEx.new()
 
 func _ready():
@@ -47,7 +47,7 @@ func _on_RichTextLabel_meta_clicked(meta):
 	OS.shell_open(str(meta))
 
 func extract():
-	_translations = _text_manager.extract(_data.get_target_dir())
+	_translations = _translator.get_untranslated()
 	
 	var text = ""
 	for untranslated in _translations:
@@ -63,7 +63,7 @@ func import() -> void:
 		_translations[index] = _lines[i]
 		i = i + 1
 	
-	_text_manager.import(_data.get_target_dir(), _translations)
+	_translator.apply_translations(_translations)
 	_translations.clear()
 
 func save_into_file(contents: String):
@@ -79,7 +79,6 @@ func save_into_file(contents: String):
 func _on_target_text_caret_changed():
 	_target_text.center_viewport_to_caret()
 	_source_text.set_caret_line(_target_text.get_caret_line())
-
 
 func _on_source_text_caret_changed():
 	_source_text.center_viewport_to_caret()

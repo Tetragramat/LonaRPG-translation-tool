@@ -40,7 +40,8 @@ bbcode_enabled = true
 text = "[center]This tool is limited in that only Chinese characters can be extracted and translated.
 So you can translate only from Chinese to your preffered language. 
 
-WARNING: This tool overrides contents of Text/MTL directory of the game each time you select directory you want to translate.[/center]"
+WARNING: This tool overrides contents of Text/MTL directory of the game each time you select directory you want to translate.[/center]
+"
 fit_content = true
 
 [node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
@@ -89,7 +90,7 @@ offset_right = 635.281
 offset_bottom = -2.77539
 theme_override_colors/font_color = Color(0.686275, 0.686275, 0.686275, 1)
 text = "Author: Tetragramat
-Bug reports: Send to Itch comunity or Tetragramat#3535 in official LonaRPG discord"
+Bug reports: Send to Itch comunity or official LonaRPG discord"
 
 [node name="AlwaysOnTopButton" type="CheckButton" parent="."]
 layout_mode = 0

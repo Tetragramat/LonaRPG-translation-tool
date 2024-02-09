@@ -2,16 +2,16 @@ extends Object
 
 class_name TextManager
 
-var _regex: RegEx = RegEx.new()
-var _extracted = []
+var regex: RegEx = RegEx.new()
+var extracted = []
 
 func _init():
-	if _regex.compile("(*UTF)[\\N{U+4E00}-\\N{U+9FFF}\\N{U+3400}-\\N{U+4DBF}\\N{U+20000}-\\N{U+2A6DF}\\N{U+2A700}-\\N{U+2B73F}\\N{U+2B740}-\\N{U+2B81F}\\N{U+2B820}-\\N{U+2CEAF}\\N{U+F900}-\\N{U+FAFF}\\N{U+2F800}-\\N{U+2FA1F}？。！，]+") != OK:
+	if regex.compile("(*UTF)[\\N{U+4E00}-\\N{U+9FFF}\\N{U+3400}-\\N{U+4DBF}\\N{U+20000}-\\N{U+2A6DF}\\N{U+2A700}-\\N{U+2B73F}\\N{U+2B740}-\\N{U+2B81F}\\N{U+2B820}-\\N{U+2CEAF}\\N{U+F900}-\\N{U+FAFF}\\N{U+2F800}-\\N{U+2FA1F}？。！，]+") != OK:
 		printerr("Unable to compile regex")
 
 func import(path: String, translations: Dictionary) -> void:
 	# translations contains extracted with removed duplicates
-	var lines = _extracted
+	var lines = extracted
 	
 	if lines.is_empty():
 		return
@@ -42,7 +42,7 @@ func import(path: String, translations: Dictionary) -> void:
 		file.close()
 		
 		var from_pos = 0
-		for result in _regex.search_all(content):
+		for result in regex.search_all(content):
 			var current_pos = content.find(result.get_string(), from_pos)
 			content = content.erase(current_pos, result.get_string().length())
 			content = content.insert(current_pos, lines.pop_back())
@@ -52,19 +52,19 @@ func import(path: String, translations: Dictionary) -> void:
 		file.close()
 
 func extract(path: String) -> Dictionary:
-	_extracted.clear()
+	extracted.clear()
 	
 	for file_path in list_dir_recursive(path):
 		var file = FileAccess.open(file_path, FileAccess.READ)
 		var content = file.get_as_text()
 		file.close()
 		
-		for result in _regex.search_all(content):
-			_extracted.append(result.get_string())
+		for result in regex.search_all(content):
+			extracted.append(result.get_string())
 	
 	var optimised = {}
 	
-	for line in _extracted:
+	for line in extracted:
 		optimised[line] = null
 	
 	return optimised

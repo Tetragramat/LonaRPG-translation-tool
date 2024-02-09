@@ -64,8 +64,8 @@ text = "Untranslated"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-highlight_current_line = true
 scroll_past_end_of_file = true
+highlight_current_line = true
 gutters_draw_line_numbers = true
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
@@ -81,8 +81,8 @@ text = "Translations"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-highlight_current_line = true
 scroll_past_end_of_file = true
+highlight_current_line = true
 gutters_draw_line_numbers = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]

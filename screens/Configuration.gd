@@ -1,6 +1,5 @@
 extends "AbstractScreen.gd"
 
-const TextManager = preload("res://scripts/text_manager.gd")
 const GoogleLocales = preload("res://scripts/locales.gd")
 
 @onready var _language_option_button = $MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/LanguageOptionButton
@@ -33,7 +32,7 @@ func _on_SelectGameButton_pressed():
 	_file_dialog.popup_centered()
 	_file_dialog.set_current_path(_config.get_game_path())
 
-func _on_files_dropped(files: PackedStringArray, screen: int) -> void:
+func _on_files_dropped(files: PackedStringArray, _screen: int) -> void:
 	_file_dialog.visible = false
 	_on_FileDialog_file_selected(files[0])
 

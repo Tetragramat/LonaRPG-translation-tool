@@ -1,14 +1,12 @@
 extends "AbstractScreen.gd"
 
-const GoogleLocales = preload("res://scripts/locales.gd")
-
 @onready var _label = $MarginContainer/VBoxContainer/RichTextLabel
 @onready var _progress_bar = $MarginContainer/VBoxContainer/ProgressBar
 @onready var _start_button = $MarginContainer/VBoxContainer/HBoxContainer/StartButton
 @onready var _timer = $Timer
 @onready var _data = get_node("/root/LocalizationData")
+@onready var _translator: Translator = Translator.new(_data.get_language(), _data.get_target_dir())
 
-var _text_manager = TextManager.new()
 var _extracted_data := {}
 var _translated_data := {}
 var _batches: Array = []
@@ -46,10 +44,10 @@ func _on_Timer_timeout():
 	create_request("zh-CN", _data.get_language(), _batches.pop_front())
 
 func extract() -> void:
-	_extracted_data = _text_manager.extract(_data.get_target_dir())
+	_extracted_data = _translator.get_untranslated()
 
 func import() -> void:
-	_text_manager.import(_data.get_target_dir(), _translated_data)
+	_translator.apply_translations(_translated_data)
 	_translated_data.clear()
 
 func create_batches():
@@ -86,7 +84,7 @@ func create_url(from_language, to_language, value) -> String:
 	
 	return url
 
-func http_request_completed(result, response_code, headers, body, http_request):
+func http_request_completed(result, response_code, _headers, body, http_request):
 	remove_child(http_request)
 	
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:

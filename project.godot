@@ -32,7 +32,6 @@ singletons=[]
 [gui]
 
 common/swap_cancel_ok=false
-theme/custom_font="res://assets/NotoSansTC.tres"
 
 [logging]
 
