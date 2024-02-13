@@ -14,7 +14,7 @@ var _batches: Array = []
 func _ready():
 	extract()
 	create_batches()
-	_label.add_text(str("Automatic position should take %.1f minutes to finish.\n" % [(_batches.size() * _timer.wait_time) / 60]))
+	_label.add_text(str("Automatic translation should take %.1f minutes to finish.\n" % [(_batches.size() * _timer.wait_time) / 60]))
 
 func _process(_delta):
 	if not _batches.is_empty() and _timer.is_stopped():
