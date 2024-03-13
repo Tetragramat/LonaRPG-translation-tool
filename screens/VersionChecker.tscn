@@ -1,0 +1,135 @@
+[gd_scene load_steps=7 format=3 uid="uid://wudkjg1jepr8"]
+
+[ext_resource type="Texture2D" uid="uid://bni77hx2dyoy1" path="res://resources/oval.svg" id="1_w7ykw"]
+
+[sub_resource type="GDScript" id="GDScript_rbefg"]
+script/source = "extends Control
+
+func _ready():
+	print_debug(\"Current version %s\" % ProjectSettings.get(\"application/config/version\"))
+	%InProgress.visible = true
+	$HTTPRequest.request_completed.connect(_on_request_completed)
+	$HTTPRequest.request('https://itch.io/api/1/x/wharf/latest?target=tetragramat/lonarpg-mtl&channel_name=win')
+
+func _on_request_completed(_result, response_code, _headers, body):
+	%InProgress.visible = false
+	print_debug(\"Version check request completed %d %s\" % [response_code, body.get_string_from_utf8()])
+	
+	if response_code == 200:
+		var json: Dictionary = JSON.parse_string(body.get_string_from_utf8())
+		
+		if json.has('latest'):
+			if json['latest'] == ProjectSettings.get(\"application/config/version\"):
+				%UpToDate.visible = true
+			else:
+				%Outdated.visible = true
+		else:
+			%Error.visible = true
+			printerr(\"Check for updates resulted in %d %s\" % [response_code, body.get_string_from_utf8()])
+	else:
+		%Error.visible = true
+		printerr(\"Check for updates resulted in %d %s\" % [response_code, body.get_string_from_utf8()])
+		
+"
+
+[sub_resource type="GDScript" id="GDScript_l8clm"]
+script/source = "extends Sprite2D
+
+func _process(delta):
+	# animate spinner
+	rotate(delta * 5)
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_dtbc2"]
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_a28nr"]
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_phil3"]
+font_size = 22
+
+[node name="VersionChecker" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = SubResource("GDScript_rbefg")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_right = 189.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="InProgress" type="HBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/InProgress"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="Spinner" type="Sprite2D" parent="MarginContainer/InProgress/CenterContainer"]
+position = Vector2(15, 16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_w7ykw")
+script = SubResource("GDScript_l8clm")
+
+[node name="Label" type="Label" parent="MarginContainer/InProgress"]
+layout_mode = 2
+text = "Checking version..."
+
+[node name="Outdated" type="HBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Outdated"]
+layout_mode = 2
+text = "⚠️"
+label_settings = SubResource("LabelSettings_dtbc2")
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/Outdated"]
+layout_mode = 2
+
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/Outdated/CenterContainer"]
+layout_mode = 2
+text = "Your version is outdated. Click here to open download page. "
+underline = 1
+uri = "https://tetragramat.itch.io/lonarpg-mtl"
+
+[node name="UpToDate" type="HBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/UpToDate"]
+layout_mode = 2
+text = "✔️"
+label_settings = SubResource("LabelSettings_a28nr")
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/UpToDate"]
+layout_mode = 2
+text = "Your version is up to date."
+
+[node name="Error" type="HBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="MarginContainer/Error"]
+layout_mode = 2
+text = "⛔"
+label_settings = SubResource("LabelSettings_phil3")
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/Error"]
+layout_mode = 2
+text = "Failed to check for updates."
+vertical_alignment = 1
