@@ -3,6 +3,11 @@ LonaRPG MTL
 
 # Changelog
 
+Update 8
+
+* Added version checker, on start tool will check if there is new version
+* Added links to Github source code, Itch.io project page and Discord community server
+
 Update 7
 
 * Added translations cache
