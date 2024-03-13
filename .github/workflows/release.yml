@@ -42,4 +42,4 @@ jobs:
         uses: softprops/action-gh-release@v2.0.2
         with:
           tag_name: ${{ github.event.inputs.version }}
-          files: ./build/windows/$EXPORT_NAME.exe
+          files: ./build/windows/${{ env.EXPORT_NAME }}.exe
