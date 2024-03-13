@@ -48,3 +48,7 @@ jobs:
           CHANNEL: win
           PACKAGE: build/windows
           VERSION: ${{ inputs.version }}
+      - name: Release
+        uses: softprops/action-gh-release@v2.0.2
+        with:
+          tag_name: ${{ github.event.inputs.version }}
