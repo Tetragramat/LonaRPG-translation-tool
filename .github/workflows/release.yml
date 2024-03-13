@@ -12,6 +12,8 @@ env:
   GODOT_VERSION: 4.2.1
   EXPORT_NAME: LonaRPG-MTL
   PROJECT_PATH: project
+  ITCH_GAME: lonarpg-mtl
+  ITCH_USER: tetragramat
 
 jobs:
   export-windows:
@@ -33,13 +35,16 @@ jobs:
           mkdir -v -p build/windows
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
+      - name: Prepare build addons
+        run: cp build/README.txt build/windows/README.txt
       - name: Upload Artifact
         uses: actions/upload-artifact@v4.3.1
         with:
           name: windows
           path: build/windows
-      - name: Release
-        uses: softprops/action-gh-release@v2.0.2
-        with:
-          tag_name: ${{ github.event.inputs.version }}
-          files: build/windows/${{ env.EXPORT_NAME }}.exe
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: windows
+          PACKAGE: build/windows
+          VERSION: ${{ inputs.version }}
