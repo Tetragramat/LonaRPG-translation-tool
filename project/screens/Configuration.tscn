@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://s8ecjys3uo5r"]
 
 [ext_resource type="Script" path="res://screens/Configuration.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://s6qsp8h7wwdc" path="res://assets/discord-mark-blue.svg" id="2_8ur3c"]
 [ext_resource type="PackedScene" uid="uid://wudkjg1jepr8" path="res://screens/VersionChecker.tscn" id="2_b6l4f"]
-[ext_resource type="Texture2D" uid="uid://s6qsp8h7wwdc" path="res://resources/discord-mark-blue.svg" id="3_lawhv"]
-[ext_resource type="Texture2D" uid="uid://bayocporklrfi" path="res://resources/app-icon.svg" id="4_5goig"]
-[ext_resource type="Texture2D" uid="uid://cob3xf8lx5jrx" path="res://resources/GitHub_Logo_White.png" id="5_i43j8"]
+[ext_resource type="Texture2D" uid="uid://bayocporklrfi" path="res://assets/app-icon.svg" id="3_0ch32"]
+[ext_resource type="Texture2D" uid="uid://cob3xf8lx5jrx" path="res://assets/GitHub_Logo_White.png" id="4_bypys"]
 
 [node name="Configuration" type="Control"]
 layout_mode = 3
@@ -100,7 +100,7 @@ uri = "https://discord.gg/dpUnakhZ5h"
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("3_lawhv")
+texture = ExtResource("2_8ur3c")
 expand_mode = 2
 stretch_mode = 5
 metadata/_edit_lock_ = true
@@ -115,7 +115,7 @@ uri = "https://tetragramat.itch.io/lonarpg-mtl"
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-texture = ExtResource("4_5goig")
+texture = ExtResource("3_0ch32")
 expand_mode = 2
 stretch_mode = 5
 metadata/_edit_lock_ = true
@@ -130,7 +130,7 @@ uri = "https://github.com/Tetragramat/LonaRPG-translation-tool"
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 40.0
-texture = ExtResource("5_i43j8")
+texture = ExtResource("4_bypys")
 expand_mode = 2
 stretch_mode = 5
 metadata/_edit_lock_ = true

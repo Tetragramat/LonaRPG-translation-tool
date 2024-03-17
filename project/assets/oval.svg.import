@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s6qsp8h7wwdc"
-path="res://.godot/imported/discord-mark-blue.svg-4cf7bd53605a57a13616d4374c23ce98.ctex"
+uid="uid://bni77hx2dyoy1"
+path="res://.godot/imported/oval.svg-ef8f33618fa761f51c6316c49f8a0ccf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/discord-mark-blue.svg"
-dest_files=["res://.godot/imported/discord-mark-blue.svg-4cf7bd53605a57a13616d4374c23ce98.ctex"]
+source_file="res://assets/oval.svg"
+dest_files=["res://.godot/imported/oval.svg-ef8f33618fa761f51c6316c49f8a0ccf.ctex"]
 
 [params]
 

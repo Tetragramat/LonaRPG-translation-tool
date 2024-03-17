@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bayocporklrfi"
-path="res://.godot/imported/app-icon.svg-534d62015aa29e314130fcd367dc7414.ctex"
+uid="uid://s6qsp8h7wwdc"
+path="res://.godot/imported/discord-mark-blue.svg-caddda395d9cf5bb6dedce488125c541.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/app-icon.svg"
-dest_files=["res://.godot/imported/app-icon.svg-534d62015aa29e314130fcd367dc7414.ctex"]
+source_file="res://assets/discord-mark-blue.svg"
+dest_files=["res://.godot/imported/discord-mark-blue.svg-caddda395d9cf5bb6dedce488125c541.ctex"]
 
 [params]
 
