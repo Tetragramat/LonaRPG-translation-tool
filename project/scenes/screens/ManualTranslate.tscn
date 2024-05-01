@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://vavu8kqjedtv"]
 
-[ext_resource type="Script" path="res://screens/ManualTranslate.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/screens/ManualTranslate.gd" id="1"]
 
 [node name="ManualTranslate" type="Control"]
 layout_mode = 3

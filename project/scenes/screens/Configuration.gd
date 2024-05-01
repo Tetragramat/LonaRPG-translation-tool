@@ -72,7 +72,7 @@ func _on_LanguageOptionButton_item_selected(index):
 	copy_recursive(_data.get_source_dir(), _data.get_target_dir())
 
 func _on_GoogleTranslateButton_pressed():
-	emit_signal("next_screen", "google_translate")
+	emit_signal("next_screen", "translation")
 
 func _on_ManualTranslateButton_pressed():
 	emit_signal("next_screen", "manual_translate")

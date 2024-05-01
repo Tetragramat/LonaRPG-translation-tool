@@ -2,9 +2,9 @@ extends Node
 
 var current_screen
 var screens = {
-		"configuration": preload("res://screens/Configuration.tscn"),
-		"google_translate": preload("res://screens/GoogleTranslate.tscn"),
-		"manual_translate": preload("res://screens/ManualTranslate.tscn"),
+		"configuration": preload("res://scenes/screens/Configuration.tscn"),
+		"translation": preload("res://scenes/screens/Translation.tscn"),
+		"manual_translate": preload("res://scenes/screens/ManualTranslate.tscn"),
 	}
 
 func _ready():
