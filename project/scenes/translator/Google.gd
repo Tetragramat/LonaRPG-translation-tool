@@ -4,6 +4,7 @@ class_name Google
 const CHARACTER_LIMIT = 5000
 
 signal translation_progress(translations: Dictionary)
+signal execution_failure(reason: String)
 
 @onready var _http_request: HTTPRequest = $HTTPRequest
 @onready var _timer: Timer = $Timer
@@ -51,19 +52,22 @@ func execute() -> void:
 	var response = _http_request.request(url, [], HTTPClient.METHOD_GET)
 	
 	if response != OK:
+		execution_failure.emit("Request failed %d" % response)
 		printerr("Request failed %d" % response)
 	
 	_timer.start()
 
 func _on_http_request_request_completed(result: HTTPRequest.Result, response_code: HTTPClient.ResponseCode, headers: PackedStringArray, body: PackedByteArray) -> void:
-	print_debug("HTTPRequest to Google api.\nResult %d\nCode %d\nHeaders %s\nBody %s" % [result, response_code, headers, body.get_string_from_utf8()])
+	print_debug("HTTP Request to Google api.\nResult %d\nCode %d\nHeaders %s\nBody %s" % [result, response_code, headers, body.get_string_from_utf8()])
 	
 	if result != HTTPRequest.RESULT_SUCCESS:
-		printerr("HTTPRequest to Google api failed.\nResult %d\nCode %d\nHeaders %s\nBody %s" % [result, response_code, headers, body.get_string_from_utf8()])
+		execution_failure.emit("HTTP Request to Google api failed.[table=2][cell]Result[/cell][cell]%d[/cell][cell]Code[/cell][cell]%d[/cell][cell]Headers[/cell][cell]%s[/cell][cell]Content[/cell][cell]%s[/cell][/table]" % [result, response_code, headers, body.get_string_from_utf8()])
+		printerr("HTTP Request to Google api failed.\nResult %d\nCode %d\nHeaders %s\nBody %s" % [result, response_code, headers, body.get_string_from_utf8()])
 		return
 	
 	if response_code != HTTPClient.RESPONSE_OK:
-		printerr("HTTPRequest to Google api failed.\nResult %d\nCode %d\nHeaders %s\nBody %s" % [result, response_code, headers, body.get_string_from_utf8()])
+		execution_failure.emit("HTTP Request to Google api failed.[table=2][cell]Result[/cell][cell]%d[/cell][cell]Code[/cell][cell]%d[/cell][cell]Headers[/cell][cell]%s[/cell][cell]Content[/cell][cell]%s[/cell][/table]" % [result, response_code, headers, body.get_string_from_utf8()])
+		printerr("HTTP Request to Google api failed.\nResult %d\nCode %d\nHeaders %s\nBody %s" % [result, response_code, headers, body.get_string_from_utf8()])
 		return
 	
 	var json = JSON.new()
@@ -86,7 +90,8 @@ func _on_http_request_request_completed(result: HTTPRequest.Result, response_cod
 		original_lines.append(item)
 	
 	if original_lines.size() != translated_lines.size():
-		printerr("Amount of original %d and translated %d lines does not match!" % [original_lines.size(), translated_lines.size()])
+		execution_failure.emit("Amount of original %d and translated %d lines in the response does not match!" % [original_lines.size(), translated_lines.size()])
+		printerr("Amount of original %d and translated %d lines in the response does not match!" % [original_lines.size(), translated_lines.size()])
 		return
 	
 	var translations: Dictionary = {}

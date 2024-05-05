@@ -3,6 +3,11 @@ LonaRPG MTL
 
 # Changelog
 
+Update 9
+
+* Refactored Google translation to be more generic and allow more translation services than just Google translate
+* Automatic translation is faster and displays additional information about translation process
+
 Update 8
 
 * Added version checker, on start tool will check if there is new version

@@ -25,13 +25,15 @@ func _on_begin_button_pressed():
 	_extracted_data = _translator.get_untranslated()
 	
 	if _extracted_data.is_empty():
-		_label.add_text(str("\nThere is nothing to translate.\n"))
+		_label.append_text(str("[color=green]There is nothing to translate.[/color]\n\n"))
 		return
 	
 	_translator_option_button.disabled = true
 	_start_button.disabled = true
 	_progress_bar.max_value = _extracted_data.size()
 	_progress_bar.value = 0;
+	
+	_label.append_text("Starting translation of %d lines from %s to %s.\n\n" % [_extracted_data.size(), "zh-CN", _data.get_language()])
 	
 	var node: Google = _translator_option_button.get_selected_metadata()
 	node.translate(_extracted_data.keys(), "zh-CN", _data.get_language())
@@ -44,12 +46,14 @@ func _on_google_translation_progress(translations: Dictionary):
 	_progress_bar.value = _translated_data.size()
 	_translator.apply_translations(translations)
 	
-	_label.add_text(str("Progress... Translated %d lines.\n" % translations.size()))
+	_label.append_text("Progress... Translated %d lines.\n\n" % translations.size())
 	
 	if _translated_data.size() == _extracted_data.size():
-		_label.add_text(str("\nTranslation is complete. Start LonaRPG and switch language to MTL.\n\n"))
+		_label.append_text(str("[color=green]Translation is complete. Start LonaRPG and switch language to MTL.[/color]\n\n"))
 		_start_button.disabled = false
 		_translator_option_button.disabled = false
 		_translated_data.clear()
 		_extracted_data.clear()
 
+func _on_google_execution_failure(reason: String):
+	_label.append_text("[color=red]%s[/color]\n\n" % reason)

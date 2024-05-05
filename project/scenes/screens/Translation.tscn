@@ -39,7 +39,10 @@ theme_override_constants/separation = 20
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Select translation service and press start to begin automatic translation.
+bbcode_enabled = true
+text = "Cached translations were automatically applied.
+
+Select translation service and press start to begin automatic translation.
 
 "
 
@@ -77,4 +80,5 @@ text = "Start"
 [connection signal="item_selected" from="Panel/MarginContainer/VBoxContainer/TranslatorOptionButton" to="." method="_on_translator_option_button_item_selected"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/HBoxContainer/BeginButton" to="." method="_on_begin_button_pressed"]
+[connection signal="execution_failure" from="Google" to="." method="_on_google_execution_failure"]
 [connection signal="translation_progress" from="Google" to="." method="_on_google_translation_progress"]
