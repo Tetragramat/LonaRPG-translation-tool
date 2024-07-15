@@ -34,24 +34,23 @@ jobs:
         run: |
           mkdir -v -p build/linux
           cd $PROJECT_PATH
-          godot --headless --verbose --export-release "Linux/X11" ../build/linux/$EXPORT_NAME.zip
+          godot --headless --verbose --export-release "Linux/X11" ../build/linux/${EXPORT_NAME}.zip
       - name: Prepare build addons
         run: |
           cd build
           zip -u linux/$EXPORT_NAME.zip README.txt
-          ls linux
           cd ..
-      # - name: Upload Artifact
-      #   uses: actions/upload-artifact@v4.3.1
-      #   with:
-      #     name: linux
-      #     path: build/linux/$EXPORT_NAME.zip
-      # - uses: manleydev/butler-publish-itchio-action@master
-      #   env:
-      #     BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-      #     CHANNEL: linux
-      #     PACKAGE: build/linux/$EXPORT_NAME.zip
-      #     VERSION: ${{ inputs.version }}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: linux
+          path: build/linux/${EXPORT_NAME}.zip
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: linux
+          PACKAGE: build/linux/${EXPORT_NAME}.zip
+          VERSION: ${{ inputs.version }}
       # - name: Release
       #   uses: softprops/action-gh-release@v2.0.2
       #   with:
