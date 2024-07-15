@@ -44,13 +44,13 @@ jobs:
         uses: actions/upload-artifact@v4.3.1
         with:
           name: linux
-          path: build/linux
-      # - uses: manleydev/butler-publish-itchio-action@master
-      #   env:
-      #     BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
-      #     CHANNEL: linux
-      #     PACKAGE: build/linux/$EXPORT_NAME.zip
-      #     VERSION: ${{ inputs.version }}
+          path: build/linux/$EXPORT_NAME.zip
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: linux
+          PACKAGE: build/linux/$EXPORT_NAME.zip
+          VERSION: ${{ inputs.version }}
       # - name: Release
       #   uses: softprops/action-gh-release@v2.0.2
       #   with:
