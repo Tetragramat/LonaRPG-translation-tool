@@ -35,7 +35,7 @@ jobs:
           mkdir -v -p build/linux
           cd $PROJECT_PATH
           godot --headless --verbose --export-release "Linux/X11" ../build/linux/$EXPORT_NAME.x86_64
-          chmod 777 build/linux/$EXPORT_NAME.x86_64
+          chmod 777 ../build/linux/$EXPORT_NAME.x86_64
       - name: Prepare build addons
         run: cp build/README.txt build/linux/README.txt
       - name: Upload Artifact
