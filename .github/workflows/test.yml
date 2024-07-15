@@ -44,12 +44,12 @@ jobs:
         uses: actions/upload-artifact@v4.3.1
         with:
           name: linux
-          path: build/linux/${EXPORT_NAME}.zip
+          path: build/linux/LonaRPG-MTL.zip
       - uses: manleydev/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: linux
-          PACKAGE: build/linux/${EXPORT_NAME}.zip
+          PACKAGE: build/linux/LonaRPG-MTL.zip
           VERSION: ${{ inputs.version }}
       # - name: Release
       #   uses: softprops/action-gh-release@v2.0.2
