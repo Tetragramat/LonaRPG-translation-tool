@@ -9,8 +9,7 @@ on:
         type: string
 
 env:
-  GODOT_VERSION: 4.2.1
-  EXPORT_NAME: LonaRPG-MTL
+  GODOT_VERSION: 4.2.2
   PROJECT_PATH: project
   ITCH_GAME: lonarpg-mtl
   ITCH_USER: tetragramat
@@ -20,7 +19,7 @@ jobs:
     name: Windows Export
     runs-on: ubuntu-20.04
     container:
-      image: barichello/godot-ci:4.2.1
+      image: barichello/godot-ci:4.2.2
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
@@ -34,21 +33,55 @@ jobs:
         run: |
           mkdir -v -p build/windows
           cd $PROJECT_PATH
-          godot --headless --verbose --export-release "Windows Desktop" ../build/windows/$EXPORT_NAME.exe
+          godot --headless --verbose --export-release "Windows Desktop" ../build/windows/LonaRPG-MTL.zip
       - name: Prepare build addons
-        run: cp build/README.txt build/windows/README.txt
+        run: |
+          cd build
+          zip -u windows/LonaRPG-MTL.zip README.txt
+          cd ..
       - name: Upload Artifact
         uses: actions/upload-artifact@v4.3.1
         with:
           name: windows
-          path: build/windows
+          path: build/windows/LonaRPG-MTL.zip
       - uses: manleydev/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: win
-          PACKAGE: build/windows
+          PACKAGE: build/windows/LonaRPG-MTL.zip
           VERSION: ${{ inputs.version }}
-      - name: Release
-        uses: softprops/action-gh-release@v2.0.2
+  export-linux:
+    name: Linux/X11 Export
+    runs-on: ubuntu-20.04
+    container:
+      image: barichello/godot-ci:4.2.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
         with:
-          tag_name: ${{ github.event.inputs.version }}
+          lfs: true
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Linux/X11 Build
+        run: |
+          mkdir -v -p build/linux
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "Linux/X11" ../build/linux/LonaRPG-MTL.zip
+      - name: Prepare build addons
+        run: |
+          cd build
+          zip -u linux/LonaRPG-MTL.zip README.txt
+          cd ..
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4.3.1
+        with:
+          name: linux
+          path: build/linux/LonaRPG-MTL.zip
+      - uses: manleydev/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: linux
+          PACKAGE: build/linux/LonaRPG-MTL.zip
+          VERSION: ${{ inputs.version }}
