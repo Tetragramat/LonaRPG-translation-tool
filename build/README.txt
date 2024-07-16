@@ -3,6 +3,10 @@ LonaRPG MTL
 
 # Changelog
 
+Update 10
+
+* Added Linux build
+
 Update 9
 
 * Refactored Google translation to be more generic and allow more translation services than just Google translate
