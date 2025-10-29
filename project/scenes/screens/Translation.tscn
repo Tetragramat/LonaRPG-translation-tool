@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://de0hcc27yrjon"]
 
-[ext_resource type="Script" path="res://scenes/screens/Translation.gd" id="1_idgx2"]
+[ext_resource type="Script" uid="uid://bugiuk8ld6efd" path="res://scenes/screens/Translation.gd" id="1_idgx2"]
 [ext_resource type="PackedScene" uid="uid://dimpfx2ryeb10" path="res://scenes/translator/Google.tscn" id="2_y0u75"]
 
 [node name="Translation" type="Control"]
@@ -50,8 +50,8 @@ Select translation service and press start to begin automatic translation.
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 alignment = 1
-item_count = 1
 selected = 0
+item_count = 1
 popup/item_0/text = "Select translation service"
 popup/item_0/id = 0
 

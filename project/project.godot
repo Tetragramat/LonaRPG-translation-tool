@@ -13,11 +13,11 @@ config_version=5
 config/name="LonaRPG MTL"
 config/version="1.0.10"
 run/main_scene="res://Root.tscn"
-config/features=PackedStringArray("4.2")
+config/features=PackedStringArray("4.5")
 run/low_processor_mode=true
 boot_splash/bg_color=Color(0, 0, 0, 1)
-boot_splash/image="res://splash.png"
 boot_splash/fullsize=false
+boot_splash/image="res://splash.png"
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 

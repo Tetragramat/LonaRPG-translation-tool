@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://s8ecjys3uo5r"]
 
-[ext_resource type="Script" path="res://scenes/screens/Configuration.gd" id="1"]
+[ext_resource type="Script" uid="uid://k84ppxntwt6t" path="res://scenes/screens/Configuration.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://s6qsp8h7wwdc" path="res://assets/discord-mark-blue.svg" id="2_8ur3c"]
 [ext_resource type="PackedScene" uid="uid://wudkjg1jepr8" path="res://scenes/VersionChecker.tscn" id="2_b6l4f"]
 [ext_resource type="Texture2D" uid="uid://bayocporklrfi" path="res://assets/app-icon.svg" id="3_0ch32"]
@@ -159,7 +159,7 @@ initial_position = 2
 size = Vector2i(800, 500)
 theme_override_colors/folder_icon_color = Color(1, 0.827451, 0.0705882, 1)
 theme_override_colors/file_icon_color = Color(1, 0.309804, 0.309804, 1)
-ok_button_text = "Otevřít"
+ok_button_text = "Open"
 file_mode = 0
 access = 2
 filters = PackedStringArray("Game.exe")

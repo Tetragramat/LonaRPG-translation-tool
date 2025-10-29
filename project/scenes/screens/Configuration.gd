@@ -120,6 +120,3 @@ func copy_recursive(from: String, to: String) -> void:
 func copy_file(from: String, to: String) -> void:
 	if DirAccess.copy_absolute(from, to) != OK:
 		printerr("Failed to copy file from %s to %s" % [from, to])
-
-
-
