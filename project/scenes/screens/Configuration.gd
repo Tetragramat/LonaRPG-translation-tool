@@ -19,7 +19,7 @@ func _ready():
 
 func _parse_cmdline():
 	for argument in OS.get_cmdline_args():
-		if not argument.contains("res://"):
+		if not argument.contains("res://") and argument.is_absolute_path():
 			_on_FileDialog_file_selected(argument)
 		break
 
@@ -37,6 +37,7 @@ func _on_files_dropped(files: PackedStringArray, _screen: int) -> void:
 	_on_FileDialog_file_selected(files[0])
 
 func _on_FileDialog_file_selected(path: String):
+	_file_dialog.hide()
 	var text_dir = path.get_base_dir() + "/Text"
 	
 	if not DirAccess.dir_exists_absolute(text_dir):

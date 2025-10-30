@@ -42,7 +42,6 @@ func execute() -> void:
 	if text == null or text.is_empty():
 		return
 	
-	var client = HTTPClient.new()
 	var query = "client=gtx&sl=%s&tl=%s&dt=t&q=%s" % [source_language, target_language, text]
 	
 	var url = "https://translate.googleapis.com/translate_a/single?%s" % query
