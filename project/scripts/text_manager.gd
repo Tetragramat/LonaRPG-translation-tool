@@ -3,15 +3,15 @@ extends Object
 class_name TextManager
 
 var regex: RegEx = RegEx.new()
-var extracted = []
+var extracted: Array[Variant] = []
 
-func _init():
+func _init() -> void:
 	if regex.compile("(*UTF)[\\N{U+4E00}-\\N{U+9FFF}\\N{U+3400}-\\N{U+4DBF}\\N{U+20000}-\\N{U+2A6DF}\\N{U+2A700}-\\N{U+2B73F}\\N{U+2B740}-\\N{U+2B81F}\\N{U+2B820}-\\N{U+2CEAF}\\N{U+F900}-\\N{U+FAFF}\\N{U+2F800}-\\N{U+2FA1F}？。！，]+") != OK:
 		printerr("Unable to compile regex")
 
 func import(path: String, translations: Dictionary) -> void:
 	# translations contains extracted with removed duplicates
-	var lines = extracted
+	var lines: Array[Variant] = extracted
 	
 	if lines.is_empty():
 		return
@@ -22,7 +22,7 @@ func import(path: String, translations: Dictionary) -> void:
 		if key == translations[key]:
 			continue
 		
-		var index = 0
+		var index: int = 0
 		
 		while true:
 			index = lines.find(key, index)
@@ -35,34 +35,56 @@ func import(path: String, translations: Dictionary) -> void:
 	
 	# invert array to make removing items faster
 	lines.reverse()
-	
+
+	print_debug("Importing texts")
+
 	for file_path in list_dir_recursive(path):
-		var file = FileAccess.open(file_path, FileAccess.READ)
+		var file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
+		if not file:
+			printerr("Unable to open file %s. %s" % [file_path, FileAccess.get_open_error()])
+			return
+		
 		var content: String = file.get_as_text()
 		file.close()
 		
-		var from_pos = 0
+		var from_pos: int = 0
 		for result in regex.search_all(content):
-			var current_pos = content.find(result.get_string(), from_pos)
+			var current_pos: int = content.find(result.get_string(), from_pos)
 			content = content.erase(current_pos, result.get_string().length())
 			content = content.insert(current_pos, lines.pop_back())
 		
 		file = FileAccess.open(file_path, FileAccess.WRITE)
+		if not file:
+			printerr("Unable to open file %s. %s" % [file_path, FileAccess.get_open_error()])
+			return
+
 		file.store_string(content)
+		
+		if file.get_error() != OK:
+			printerr("Error writing file: ", file_path, " Error: ", file.get_error())
+		
 		file.close()
 
 func extract(path: String) -> Dictionary:
 	extracted.clear()
+	print_debug("Extracting texts")
 	
 	for file_path in list_dir_recursive(path):
-		var file = FileAccess.open(file_path, FileAccess.READ)
-		var content = file.get_as_text()
+		var file: FileAccess = FileAccess.open(file_path, FileAccess.READ)
+		if not file:
+			printerr("Unable to open file %s. %s" % [file_path, FileAccess.get_open_error()])
+			return {}
+		
+		var content: String = file.get_as_text()
+		if file.get_error() != OK:
+			printerr("Error reading file: ", file_path, " Error: ", file.get_error())
+		
 		file.close()
 		
 		for result in regex.search_all(content):
 			extracted.append(result.get_string())
 	
-	var optimised = {}
+	var optimised: Dictionary[Variant, Variant] = {}
 	
 	for line in extracted:
 		optimised[line] = null
@@ -70,16 +92,16 @@ func extract(path: String) -> Dictionary:
 	return optimised
 
 func list_dir_recursive(path: String) -> Array:
-	var list = []
-	var dir = DirAccess.open(path)
+	var list: Array[Variant] = []
+	var dir: DirAccess = DirAccess.open(path)
 	
 	if dir:
 		if dir.list_dir_begin() != OK:
 			printerr("Unable to list directory %s" % path)
 		
 		while true:
-			var file = dir.get_next()
-			var current_path = str(dir.get_current_dir(), "/", file)
+			var file: String = dir.get_next()
+			var current_path: String = str(dir.get_current_dir(), "/", file)
 			
 			if file == "":
 				break

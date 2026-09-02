@@ -1,7 +1,7 @@
 extends Node
 class_name Google
 
-const CHARACTER_LIMIT = 5000
+const CHARACTER_LIMIT: int = 5000
 
 signal translation_progress(translations: Dictionary)
 signal execution_failure(reason: String)
@@ -42,13 +42,13 @@ func execute() -> void:
 	if text == null or text.is_empty():
 		return
 	
-	var query = "client=gtx&sl=%s&tl=%s&dt=t&q=%s" % [source_language, target_language, text]
+	var query: String = "client=gtx&sl=%s&tl=%s&dt=t&q=%s" % [source_language, target_language, text]
 	
-	var url = "https://translate.googleapis.com/translate_a/single?%s" % query
+	var url: String = "https://translate.googleapis.com/translate_a/single?%s" % query
 	
 	print_debug("HTTPRequest to Google api.\nRequest %s" % url)
 	
-	var response = _http_request.request(url, [], HTTPClient.METHOD_GET)
+	var response: int = _http_request.request(url, [], HTTPClient.METHOD_GET)
 	
 	if response != OK:
 		execution_failure.emit("Request failed %d" % response)
@@ -69,9 +69,14 @@ func _on_http_request_request_completed(result: HTTPRequest.Result, response_cod
 		printerr("HTTP Request to Google api failed.\nResult %d\nCode %d\nHeaders %s\nBody %s" % [result, response_code, headers, body.get_string_from_utf8()])
 		return
 	
-	var json = JSON.new()
-	json.parse(body.get_string_from_utf8())
-	var content = json.get_data()
+	var json: JSON = JSON.new()
+	
+	if json.parse(body.get_string_from_utf8()) != OK:
+		execution_failure.emit("Invalid JSON response")
+		printerr("HTTP Request to Google api failed. Invalid Json. \nResult %d\nCode %d\nHeaders %s\nBody %s" % [result, response_code, headers, body.get_string_from_utf8()])
+		return
+	
+	var content = json.data
 	
 	var translated_text: String = ""
 	var original_text: String = ""
@@ -80,11 +85,11 @@ func _on_http_request_request_completed(result: HTTPRequest.Result, response_cod
 		translated_text = translated_text + item[0]
 		original_text = original_text + item[1]
 
-	var translated_lines = []
+	var translated_lines: Array[Variant] = []
 	for item in translated_text.split("\n", false):
 		translated_lines.append(item)
 	
-	var original_lines = []
+	var original_lines: Array[Variant] = []
 	for item in original_text.split("\n", false):
 		original_lines.append(item)
 	
@@ -94,7 +99,7 @@ func _on_http_request_request_completed(result: HTTPRequest.Result, response_cod
 		return
 	
 	var translations: Dictionary = {}
-	var i = 0
+	var i: int = 0
 	while i < translated_lines.size():
 		translations[original_lines[i]] = translated_lines[i]
 		i = i + 1

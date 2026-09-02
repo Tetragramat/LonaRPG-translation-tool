@@ -1,27 +1,26 @@
-extends "AbstractScreen.gd"
+extends Control
 
 @onready var _label: RichTextLabel = $Panel/MarginContainer/VBoxContainer/RichTextLabel
 @onready var _progress_bar: ProgressBar = $Panel/MarginContainer/VBoxContainer/ProgressBar
 @onready var _translator_option_button: OptionButton = $Panel/MarginContainer/VBoxContainer/TranslatorOptionButton
 @onready var _start_button: Button = $Panel/MarginContainer/VBoxContainer/HBoxContainer/BeginButton
-@onready var _data: LocalizationData = get_node("/root/LocalizationData")
-@onready var _translator: Translator = Translator.new(_data.get_language(), _data.get_target_dir())
+@onready var _translator: Translator = Translator.new(LocalizationData.get_language(), LocalizationData.get_target_dir())
 
 var _extracted_data := {}
 var _translated_data := {}
 
-func _ready():
+func _ready() -> void:
 	_start_button.disabled = true
 	_translator_option_button.add_item("Google Translate", 1)
 	_translator_option_button.set_item_metadata(1, $Google)
 
-func _on_translator_option_button_item_selected(index):
+func _on_translator_option_button_item_selected(index) -> void:
 	if index > 0:
 		_start_button.disabled = false
 	else:
 		_start_button.disabled = true
 
-func _on_begin_button_pressed():
+func _on_begin_button_pressed() -> void:
 	_extracted_data = _translator.get_untranslated()
 	
 	if _extracted_data.is_empty():
@@ -33,15 +32,15 @@ func _on_begin_button_pressed():
 	_progress_bar.max_value = _extracted_data.size()
 	_progress_bar.value = 0;
 	
-	_label.append_text("Starting translation of %d lines from %s to %s.\n\n" % [_extracted_data.size(), "zh-CN", _data.get_language()])
+	_label.append_text("Starting translation of %d lines from %s to %s.\n\n" % [_extracted_data.size(), "zh-CN", LocalizationData.get_language()])
 	
 	var node: Google = _translator_option_button.get_selected_metadata()
-	node.translate(_extracted_data.keys(), "zh-CN", _data.get_language())
+	node.translate(_extracted_data.keys(), "zh-CN", LocalizationData.get_language())
 
-func _on_cancel_button_pressed():
-	emit_signal("next_screen", "configuration")
+func _on_cancel_button_pressed() -> void:
+	get_parent().remove_child(self)
 
-func _on_google_translation_progress(translations: Dictionary):
+func _on_google_translation_progress(translations: Dictionary) -> void:
 	_translated_data.merge(translations)
 	_progress_bar.value = _translated_data.size()
 	_translator.apply_translations(translations)
@@ -55,5 +54,5 @@ func _on_google_translation_progress(translations: Dictionary):
 		_translated_data.clear()
 		_extracted_data.clear()
 
-func _on_google_execution_failure(reason: String):
+func _on_google_execution_failure(reason: String) -> void:
 	_label.append_text("[color=red]%s[/color]\n\n" % reason)

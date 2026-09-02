@@ -1,6 +1,6 @@
 extends Node
 
-const TARGET_DIRECTORY = "MTL"
+const TARGET_DIRECTORY: String = "MTL"
 
 var game_directory: String
 var text_directory: String
@@ -16,8 +16,8 @@ func get_source_dir() -> String:
 func get_target_dir() -> String:
 	return text_directory + "/" + TARGET_DIRECTORY
 
-func get_image_source():
+func get_image_source() -> String:
 	return game_directory + "/Graphics/Pictures/WarningENG.png"
 
-func get_image_target():
+func get_image_target() -> String:
 	return game_directory + "/Graphics/Pictures/WarningMTL.png"

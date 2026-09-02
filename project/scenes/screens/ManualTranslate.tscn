@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://vavu8kqjedtv"]
+[gd_scene format=3 uid="uid://vavu8kqjedtv"]
 
 [ext_resource type="Script" uid="uid://y3rn1hbclsgn" path="res://scenes/screens/ManualTranslate.gd" id="1"]
+[ext_resource type="Theme" uid="uid://dj0spqj8ibg44" path="res://Themes/theme.tres" id="2_2vrlq"]
 
-[node name="ManualTranslate" type="Control"]
+[node name="ManualTranslate" type="Control" unique_id=918241142]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,14 +12,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1485303800]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("2_2vrlq")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=824816882]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,11 +31,11 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1150244964]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer" unique_id=304468928]
 layout_mode = 2
 bbcode_enabled = true
 text = "1. Open Google translate (click to open) [color=#6ad2fc][url]https://translate.google.com/?tab=wT&sl=zh-CN&tl=en&op=docs[/url][/color]
@@ -45,22 +47,22 @@ text = "1. Open Google translate (click to open) [color=#6ad2fc][url]https://tra
 7. Translation is done. Start LonaRPG and switch language to MTL"
 fit_content = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1274898583]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=728803928]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1282340461]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Untranslated"
 
-[node name="SourceText" type="CodeEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="SourceText" type="CodeEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=531548879]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -68,16 +70,16 @@ scroll_past_end_of_file = true
 highlight_current_line = true
 gutters_draw_line_numbers = true
 
-[node name="HBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1430167887]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2" unique_id=1690124462]
 layout_mode = 2
 text = "Translations"
 
-[node name="TargetText" type="CodeEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
+[node name="TargetText" type="CodeEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer2" unique_id=343200061]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -85,18 +87,18 @@ scroll_past_end_of_file = true
 highlight_current_line = true
 gutters_draw_line_numbers = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=710999153]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="CancelButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="CancelButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1154717018]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Go back"
 
-[node name="ApplyButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="ApplyButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1869857022]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3

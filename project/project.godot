@@ -27,8 +27,9 @@ config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
-LocalizationData="*res://scripts/LocalizationData.gd"
-Config="*res://scripts/Config.gd"
+_fennara_game_capture="*res://addons/fennara/runtime/game_capture_helper.gd"
+Config="*uid://88lk53ifh7hs"
+LocalizationData="*uid://bvpx2odx5l175"
 
 [display]
 

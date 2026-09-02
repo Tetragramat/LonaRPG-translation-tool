@@ -1,16 +1,20 @@
 extends Node
 
-const CONFIG_PATH = "user://config.cfg"
+const CONFIG_PATH: String = "user://config.cfg"
 
-var config = ConfigFile.new()
+var config: ConfigFile = ConfigFile.new()
 
-func _ready():
+func _ready() -> void:
+	print_debug("Loading config from path: " + ProjectSettings.globalize_path(CONFIG_PATH))
+	
 	if config.load(CONFIG_PATH) != OK:
-		print("Cannot open config file")
+		printerr("Cannot open config file")
 
 func set_game_path(path: String) -> void:
 	config.set_value("General", "game_path", path)
-	config.save(CONFIG_PATH)
+	
+	if config.save(CONFIG_PATH) != OK:
+		printerr("Cannot save config file")
 
 func get_game_path() -> String:
 	if config.has_section_key("General", "game_path"):
@@ -20,7 +24,9 @@ func get_game_path() -> String:
 
 func set_window_always_on_top(enabled: bool) -> void:
 	config.set_value("General", "window_always_on_top", enabled)
-	config.save(CONFIG_PATH)
+
+	if config.save(CONFIG_PATH) != OK:
+		printerr("Cannot save config file")
 
 func get_window_always_on_top() -> bool:
 	if config.has_section_key("General", "window_always_on_top"):

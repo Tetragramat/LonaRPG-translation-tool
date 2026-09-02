@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://s8ecjys3uo5r"]
+[gd_scene format=3 uid="uid://s8ecjys3uo5r"]
 
 [ext_resource type="Script" uid="uid://k84ppxntwt6t" path="res://scenes/screens/Configuration.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://s6qsp8h7wwdc" path="res://assets/discord-mark-blue.svg" id="2_8ur3c"]
 [ext_resource type="PackedScene" uid="uid://wudkjg1jepr8" path="res://scenes/VersionChecker.tscn" id="2_b6l4f"]
+[ext_resource type="Theme" uid="uid://dj0spqj8ibg44" path="res://Themes/theme.tres" id="2_n774h"]
 [ext_resource type="Texture2D" uid="uid://bayocporklrfi" path="res://assets/app-icon.svg" id="3_0ch32"]
 [ext_resource type="Texture2D" uid="uid://cob3xf8lx5jrx" path="res://assets/GitHub_Logo_White.png" id="4_bypys"]
 
-[node name="Configuration" type="Control"]
+[node name="Configuration" type="Control" unique_id=1278548424]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,12 +16,13 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=514464705]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource("2_n774h")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1129130434]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -29,16 +31,16 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1987701453]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=167498750]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=1821650356]
 layout_mode = 2
 bbcode_enabled = true
 text = "[center]This tool is limited in that only Chinese characters can be extracted and translated.
@@ -48,55 +50,55 @@ WARNING: This tool overrides contents of Text/MTL directory of the game each tim
 "
 fit_content = true
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer" unique_id=1638978306]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer" unique_id=160052050]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="SelectGameButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="SelectGameButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=1923519326]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Select Game.exe in LonaRPG directory"
 
-[node name="LanguageOptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="LanguageOptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=780563895]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 tooltip_text = "By selecting an option the content of MTL directory will be replaced with content of chosen directory.
 
 That means if you already finished position, then selecting an option will delete it."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer" unique_id=1610611277]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="GoogleTranslateButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="GoogleTranslateButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=625905487]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Automatic translation"
 
-[node name="ManualTranslateButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+[node name="ManualTranslateButton" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=606490860]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Manual translation"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=612402669]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = 20
 
-[node name="DiscordLink" type="LinkButton" parent="MarginContainer/HBoxContainer"]
+[node name="DiscordLink" type="LinkButton" parent="MarginContainer/HBoxContainer" unique_id=1844483676]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Join comunity Discord server"
 uri = "https://discord.gg/dpUnakhZ5h"
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/DiscordLink"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/DiscordLink" unique_id=1822194030]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -105,13 +107,13 @@ expand_mode = 2
 stretch_mode = 5
 metadata/_edit_lock_ = true
 
-[node name="ItchLink" type="LinkButton" parent="MarginContainer/HBoxContainer"]
+[node name="ItchLink" type="LinkButton" parent="MarginContainer/HBoxContainer" unique_id=800099760]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Project page on Itch.io"
 uri = "https://tetragramat.itch.io/lonarpg-mtl"
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ItchLink"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/ItchLink" unique_id=171589488]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -120,13 +122,13 @@ expand_mode = 2
 stretch_mode = 5
 metadata/_edit_lock_ = true
 
-[node name="GithubLink" type="LinkButton" parent="MarginContainer/HBoxContainer"]
+[node name="GithubLink" type="LinkButton" parent="MarginContainer/HBoxContainer" unique_id=1158246301]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 tooltip_text = "Source code on Github"
 uri = "https://github.com/Tetragramat/LonaRPG-translation-tool"
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/GithubLink"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/GithubLink" unique_id=1385793187]
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 40.0
@@ -135,14 +137,14 @@ expand_mode = 2
 stretch_mode = 5
 metadata/_edit_lock_ = true
 
-[node name="VersionChecker" parent="." instance=ExtResource("2_b6l4f")]
+[node name="VersionChecker" parent="." unique_id=1125869604 instance=ExtResource("2_b6l4f")]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 5.0
 offset_bottom = 5.0
 
-[node name="AlwaysOnTopButton" type="CheckButton" parent="."]
+[node name="AlwaysOnTopButton" type="CheckButton" parent="." unique_id=1490888213]
 layout_mode = 0
 anchor_left = 1.0
 anchor_top = 1.0
@@ -153,7 +155,7 @@ offset_top = -40.0
 focus_mode = 0
 text = "Window always on top"
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1057624016]
 title = "Open a File"
 initial_position = 2
 size = Vector2i(800, 500)
@@ -163,8 +165,11 @@ ok_button_text = "Open"
 file_mode = 0
 access = 2
 filters = PackedStringArray("Game.exe")
+file_filter_toggle_enabled = false
+folder_creation_enabled = false
+deleting_enabled = false
 
-[node name="AcceptDialog" type="AcceptDialog" parent="."]
+[node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=505730782]
 initial_position = 2
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/VBoxContainer/SelectGameButton" to="." method="_on_SelectGameButton_pressed"]

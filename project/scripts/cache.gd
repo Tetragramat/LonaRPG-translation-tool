@@ -6,10 +6,10 @@ func get_cache_file(locale: String) -> String:
 	return "user://translations_" + locale + ".json"
 
 func save_cache(items: Dictionary, locale: String) -> void:
-	var json_string = JSON.stringify(items)
-	var cacheFile = get_cache_file(locale)
+	var json_string: String = JSON.stringify(items)
+	var cacheFile: String = get_cache_file(locale)
 	
-	var file = FileAccess.open(cacheFile, FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open(cacheFile, FileAccess.WRITE)
 	
 	if file == null:
 		printerr("Unable to create cache file ", cacheFile, " ERROR: ", FileAccess.get_open_error())
@@ -18,8 +18,8 @@ func save_cache(items: Dictionary, locale: String) -> void:
 	file.close()
 
 func load_cache(locale: String) -> Dictionary:
-	var cacheFile = get_cache_file(locale)
-	var file = FileAccess.open(cacheFile, FileAccess.READ)
+	var cacheFile: String = get_cache_file(locale)
+	var file: FileAccess = FileAccess.open(cacheFile, FileAccess.READ)
 	
 	if file == null:
 		print("Unable to open cache file ", cacheFile, " ERROR: ", FileAccess.get_open_error())
@@ -28,8 +28,8 @@ func load_cache(locale: String) -> Dictionary:
 	var json_string: String = file.get_as_text()
 	file.close()
 	
-	var json = JSON.new()
-	var error = json.parse(json_string)
+	var json: JSON = JSON.new()
+	var error: int = json.parse(json_string)
 	
 	if error == OK:
 		var data_received = json.data
